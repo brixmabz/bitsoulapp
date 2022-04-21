@@ -1,38 +1,36 @@
-{% extends "base.html" %}
-
-{% block title %} {{ title }} {% endblock %}
-
-{% block content %}
-<div style="padding-top: 50px" class="row justify-content-center align-items-center">
+{% extends "base.html" %} {% block title %} {{ title }} {% endblock %} {% block
+content %}
+<div
+  style="padding-top: 50px"
+  class="row justify-content-center align-items-center"
+>
   <div class="signup-form">
     <h1>Sign In</h1>
-    <hr>
-    {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-    {% for category, message in messages %}
-    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+    <hr />
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if
+    messages %} {% for category, message in messages %}
+    <div
+      class="alert alert-{{ category }} alert-dismissible fade show"
+      role="alert"
+    >
       <div class="row justify-content-between align-items-center">
         {{ message }}
         <button type="button" class="close" data-dismiss="alert">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-
     </div>
-    {% endfor %}
-    {% endif %}
-    {% endwith %}
+    {% endfor %} {% endif %} {% endwith %}
     <form action="/signin" method="POST">
+      {{ form.hidden_tag() }}
       <div class="form-group">
-        <label for="username">Username</label>
-        <input type="text" class="form-control" id="username" name="username" required>
+        {{ form.username.label }} {{ form.username(class="form-control") }}
       </div>
       <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" class="form-control" id="password" name="password" required>
+        {{ form.password.label }} {{ form.password(class="form-control") }}
       </div>
-      <br>
-      <button type="submit" class="btn btn-primary btn-block">Submit</button>
+      <br />
+      {{ form.submit(class="btn btn-primary btn-block") }}
     </form>
   </div>
 </div>

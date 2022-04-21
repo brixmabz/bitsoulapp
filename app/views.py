@@ -5,6 +5,7 @@ from .models import Task, Note, User
 from . import db
 import json
 from werkzeug.security import check_password_hash, generate_password_hash
+from .forms import UpdateNameForm, UpdatePasswordForm
 
 views = Blueprint('views', __name__)
 
@@ -117,7 +118,9 @@ def get_task():
 @views.route('/account', methods=['GET', 'POST'])
 @login_required
 def account():
-    return render_template('account.html', title='Account', user=current_user)
+    form = UpdatePasswordForm()
+
+    return render_template('account.html', title='Account', user=current_user, form=form)
 
 
 @views.route('/update/user/<option>', methods=['GET', 'POST'])
@@ -141,21 +144,23 @@ def update_user(option):
                 flash('Name changed!', category="success")
 
         elif option == "password":
-            old_password = request.form.get('oldPassword')
-            new_password1 = request.form.get('password1')
-            new_password2 = request.form.get('password2')
+            form = UpdatePasswordForm(request.form)
+            if form.validate_on_submit():
+                old_password = form.old_password.data
+                new_password1 = form.new_password1.data
+                new_password2 = form.new_password2.data
 
-            user = User.query.get_or_404(current_user.id)
+                user = User.query.get_or_404(current_user.id)
 
-            if check_password_hash(user.password, old_password):
-                if new_password1 == new_password2:
-                    user.password = generate_password_hash(
-                        new_password1, method="sha256")
-                    db.session.commit()
-                    flash('Password changed!', category="success")
+                if check_password_hash(user.password, old_password):
+                    if new_password1 == new_password2:
+                        user.password = generate_password_hash(
+                            new_password1, method="sha256")
+                        db.session.commit()
+                        flash('Password changed!', category="success")
+                    else:
+                        flash("New passwords don't match!", category='danger')
                 else:
-                    flash("New passwords don't match!", category='danger')
-            else:
-                flash('Incorrect old password!', category='danger')
+                    flash('Incorrect old password!', category='danger')
 
     return redirect(url_for('views.account'))
