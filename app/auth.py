@@ -3,6 +3,7 @@ from . import db
 from .models import User
 from flask_login import login_user, login_required, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
+from .forms import SignUpForm
 
 auth = Blueprint('auth', __name__)
 
@@ -32,6 +33,7 @@ def signin():
 
 @auth.route('/signup', methods=['POST', 'GET'])
 def signup():
+    form = SignUpForm()
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
@@ -63,7 +65,7 @@ def signup():
     if current_user.is_authenticated:
         return redirect(url_for('views.index'))
 
-    return render_template('signup.html', title="Sign Up")
+    return render_template('signup.html', title="Sign Up", form=form)
 
 
 @auth.route('/signout')
