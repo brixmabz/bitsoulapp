@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %} {{ title }} {% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col">
+    <div class="home-title mt-5">
+      BITSOUL
+    </div>
+    <div class="home-message">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque magnam, ea ullam odio earum sed expedita adipisci
+      saepe atque sequi, perferendis veritatis illo sunt dolorum repudiandae, cupiditate fugiat. Enim, quo! Magnam
+      dignissimos libero esse, excepturi odio error, cum, neque ut magni at ducimus mollitia quia similique iste eos
+      dolores eius.
+    </div>
+    <div class="row">
+      <div class="col single-card">
+        <div class="card" style="width: 18rem;">
+          <img src="https://picsum.photos/250" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Tasks Manager</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+              content.</p>
+            <a href="/tasks" class="btn btn-primary">Go to Tasks</a>
+          </div>
+        </div>
+      </div>
+      <div class="col single-card">
+        <div class="card" style="width: 18rem;">
+          <img src="https://picsum.photos/250" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Notes Maker</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+              content.</p>
+            <a href="/notes" class="btn btn-primary">Go to Notes</a>
+          </div>
+        </div>
+      </div>
+      <div class="col single-card">
+        <div class="card" style="width: 18rem;">
+          <img src="https://picsum.photos/250" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Account Settings</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+              content.</p>
+            <a href="/account" class="btn btn-primary">Manage Account</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="page-footer font-small blue pt-4">
+      <div class="footer-copyright text-center py-3">© 2022 Copyright:
+        <a href="https://getbootstrap.com/"> Bootstrap4</a>
+      </div>
+    </footer>
+  </div>
+</div>
+
+
+{% endblock %}

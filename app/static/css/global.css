@@ -1,0 +1,42 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.nav-custom {
+  min-height: 100px;
+}
+
+.content {
+  padding-bottom: 20px;
+}
+
+.signup-form {
+  width: 500px;
+  border: 2px solid rgb(204, 204, 204);
+  border-radius: 5px;
+  padding: 50px;
+}
+
+.home-title {
+  font-size: 100px;
+  font-weight: 800;
+}
+
+.home-message {
+  font-size: 1.5rem;
+  text-indent: 10rem;
+  margin-bottom: 50px;
+}
+
+.single-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.add-task-btn-container {
+  position: absolute;
+  right: 0;
+}
