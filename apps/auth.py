@@ -28,8 +28,10 @@ def auth_data():
             email=session["user"]["preferred_username"]).first()
 
         if not user:
+            name = session["user"]["name"] if "name" in session.get(
+                "user") else "Unnamed User"
             new_user = User(
-                email=session["user"]["preferred_username"], name=session["user"]["name"])
+                email=session["user"]["preferred_username"], name=name)
 
             db.session.add(new_user)
             db.session.commit()
@@ -50,6 +52,7 @@ def authorized():
         if "error" in result:
             return render_template("auth_error.html", result=result)
         session["user"] = result.get("id_token_claims")
+        print(session["user"])
         _save_cache(cache)
     except ValueError:  # Usually caused by CSRF
         pass  # Simply ignore them
