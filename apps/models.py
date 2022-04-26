@@ -5,8 +5,7 @@ from sqlalchemy.sql import func
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(40), unique=True)
-    password = db.Column(db.String(32))
+    email = db.Column(db.String(40), unique=True)
     name = db.Column(db.String(40))
     tasks = db.relationship('Task')
     notes = db.relationship('Note')

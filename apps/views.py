@@ -1,5 +1,5 @@
 from functools import reduce
-from flask import Blueprint, flash, render_template, redirect, request, url_for, jsonify
+from flask import Blueprint, flash, render_template, redirect, request, url_for, jsonify, session
 from flask_login import login_required, current_user
 from .models import Task, Note, User
 from . import db
@@ -113,54 +113,3 @@ def get_task():
                 return jsonify(task_data)
 
     return jsonify({})
-
-
-@views.route('/account', methods=['GET', 'POST'])
-@login_required
-def account():
-    form = UpdatePasswordForm()
-
-    return render_template('account.html', title='Account', user=current_user, form=form)
-
-
-@views.route('/update/user/<option>', methods=['GET', 'POST'])
-@login_required
-def update_user(option):
-    if request.method == 'POST':
-        if option == "name":
-            first_name = request.form.get('firstName')
-            last_name = request.form.get('lastName')
-
-            if len(first_name) < 3:
-                flash("First name too short!", category='danger')
-            elif len(last_name) < 3:
-                flash("Last name too short!", category='danger')
-            else:
-                name = f'{first_name} {last_name}'
-
-                user = User.query.get_or_404(current_user.id)
-                user.name = name
-                db.session.commit()
-                flash('Name changed!', category="success")
-
-        elif option == "password":
-            form = UpdatePasswordForm(request.form)
-            if form.validate_on_submit():
-                old_password = form.old_password.data
-                new_password1 = form.new_password1.data
-                new_password2 = form.new_password2.data
-
-                user = User.query.get_or_404(current_user.id)
-
-                if check_password_hash(user.password, old_password):
-                    if new_password1 == new_password2:
-                        user.password = generate_password_hash(
-                            new_password1, method="sha256")
-                        db.session.commit()
-                        flash('Password changed!', category="success")
-                    else:
-                        flash("New passwords don't match!", category='danger')
-                else:
-                    flash('Incorrect old password!', category='danger')
-
-    return redirect(url_for('views.account'))

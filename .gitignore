@@ -1,3 +1,5 @@
 venv/
 app/__pycache__/
 app/database.db
+flask_session/
+.env
