@@ -1,6 +1,6 @@
 venv/
-app/__pycache__/
-app/database.db
+apps/__pycache__/
+apps/database.db
 flask_session/
 .env
 __pycache__/
