@@ -44,5 +44,6 @@ def create_app():
 
 
 def create_db(app):
-    if not path.exists('apps/' + DB_NAME):
-        db.create_all(app=app)
+    if not path.exists('instance/' + DB_NAME):
+        with app.app_context():
+            db.create_all()
